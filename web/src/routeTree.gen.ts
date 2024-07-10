@@ -13,29 +13,59 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as WishlistImport } from './routes/wishlist'
+import { Route as CustomerImport } from './routes/customer'
+import { Route as CartImport } from './routes/cart'
+import { Route as ShopIndexImport } from './routes/shop.index'
+import { Route as ShopProductidImport } from './routes/shop.$productid'
+import { Route as ProductIdImport } from './routes/product.$id'
 
 // Create Virtual Routes
 
-const ShopLazyImport = createFileRoute('/shop')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
-
-const ShopLazyRoute = ShopLazyImport.update({
-  path: '/shop',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/shop.lazy').then((d) => d.Route))
 
 const AboutLazyRoute = AboutLazyImport.update({
   path: '/about',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/about.lazy').then((d) => d.Route))
 
+const WishlistRoute = WishlistImport.update({
+  path: '/wishlist',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CustomerRoute = CustomerImport.update({
+  path: '/customer',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CartRoute = CartImport.update({
+  path: '/cart',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const ShopIndexRoute = ShopIndexImport.update({
+  path: '/shop/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ShopProductidRoute = ShopProductidImport.update({
+  path: '/shop/$productid',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProductIdRoute = ProductIdImport.update({
+  path: '/product/$id',
+  getParentRoute: () => rootRoute,
+} as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -48,6 +78,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartImport
+      parentRoute: typeof rootRoute
+    }
+    '/customer': {
+      id: '/customer'
+      path: '/customer'
+      fullPath: '/customer'
+      preLoaderRoute: typeof CustomerImport
+      parentRoute: typeof rootRoute
+    }
+    '/wishlist': {
+      id: '/wishlist'
+      path: '/wishlist'
+      fullPath: '/wishlist'
+      preLoaderRoute: typeof WishlistImport
+      parentRoute: typeof rootRoute
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -55,11 +106,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
-    '/shop': {
-      id: '/shop'
+    '/product/$id': {
+      id: '/product/$id'
+      path: '/product/$id'
+      fullPath: '/product/$id'
+      preLoaderRoute: typeof ProductIdImport
+      parentRoute: typeof rootRoute
+    }
+    '/shop/$productid': {
+      id: '/shop/$productid'
+      path: '/shop/$productid'
+      fullPath: '/shop/$productid'
+      preLoaderRoute: typeof ShopProductidImport
+      parentRoute: typeof rootRoute
+    }
+    '/shop/': {
+      id: '/shop/'
       path: '/shop'
       fullPath: '/shop'
-      preLoaderRoute: typeof ShopLazyImport
+      preLoaderRoute: typeof ShopIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -69,8 +134,13 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
+  CartRoute,
+  CustomerRoute,
+  WishlistRoute,
   AboutLazyRoute,
-  ShopLazyRoute,
+  ProductIdRoute,
+  ShopProductidRoute,
+  ShopIndexRoute,
 })
 
 /* prettier-ignore-end */
@@ -82,18 +152,38 @@ export const routeTree = rootRoute.addChildren({
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/cart",
+        "/customer",
+        "/wishlist",
         "/about",
-        "/shop"
+        "/product/$id",
+        "/shop/$productid",
+        "/shop/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
+    "/cart": {
+      "filePath": "cart.tsx"
+    },
+    "/customer": {
+      "filePath": "customer.tsx"
+    },
+    "/wishlist": {
+      "filePath": "wishlist.tsx"
+    },
     "/about": {
       "filePath": "about.lazy.tsx"
     },
-    "/shop": {
-      "filePath": "shop.lazy.tsx"
+    "/product/$id": {
+      "filePath": "product.$id.tsx"
+    },
+    "/shop/$productid": {
+      "filePath": "shop.$productid.tsx"
+    },
+    "/shop/": {
+      "filePath": "shop.index.tsx"
     }
   }
 }

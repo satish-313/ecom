@@ -1,4 +1,5 @@
 import { createLazyFileRoute } from "@tanstack/react-router";
+import {Button} from "@/components/ui/button"
 
 export const Route = createLazyFileRoute("/")({
     component: Home,
@@ -6,8 +7,9 @@ export const Route = createLazyFileRoute("/")({
 
 function Home() {
     return (
-        <div className="p-2">
+        <div>
             <h3>Welcome Home!</h3>
+            <Button>click</Button>
         </div>
     );
 }
