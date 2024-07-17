@@ -20,13 +20,11 @@ type Product struct {
 }
 
 type Repository interface {
-	GetMostDiscoutProduct(context.Context) (*([]Product), error)
+	getMostDiscoutProduct(context.Context) (*([]Product), error)
+	categoryProduct(context.Context, string, string) (*[]Product, error)
 }
 
 type Service interface {
-	DisProd(context.Context) (*DisProdRes, error)
-}
-
-type DisProdRes struct {
-	data *([]Product)
+	disProd(context.Context) (*([]Product), error)
+	categoryProduct(context.Context, string, string) (*[]Product, bool, error)
 }

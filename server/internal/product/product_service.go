@@ -17,13 +17,27 @@ func NewService(repository Repository) Service {
 	}
 }
 
-func (s *service) DisProd(c context.Context) (*DisProdRes, error) {
-	p, err := s.Repository.GetMostDiscoutProduct(c)
+func (s *service) disProd(c context.Context) (*[]Product, error) {
+	p, err := s.Repository.getMostDiscoutProduct(c)
 	if err != nil {
 		return nil, err
 	}
 
-	return &DisProdRes{
-		data: p,
-	}, nil
+	return p, nil
+}
+
+func (s *service) categoryProduct(c context.Context, category string, offset string) (*[]Product, bool, error) {
+	p, err := s.Repository.categoryProduct(c, category, offset)
+	if err != nil {
+		return nil, false, err
+	}
+	r := *p
+	isNext := false
+
+	if len(*p) > 8 {
+		isNext = true
+		r = (*p)[:8]
+	}
+
+	return &r, isNext, nil
 }
