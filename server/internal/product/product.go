@@ -19,12 +19,21 @@ type Product struct {
 	Thumbnail            string  `json:"thumbnail" db:"thumbnail"`
 }
 
+type Category struct {
+	CategoryId int64  `json:"category_id"`
+	Name       string `json:"category_name"`
+}
+
 type Repository interface {
 	getMostDiscoutProduct(context.Context) (*([]Product), error)
 	categoryProduct(context.Context, string, string) (*[]Product, error)
+	categoryWithProd(context.Context, string) (*[]Category, error)
+	getProdById(context.Context, int) (*Product, error)
 }
 
 type Service interface {
 	disProd(context.Context) (*([]Product), error)
 	categoryProduct(context.Context, string, string) (*[]Product, bool, error)
+	cateWithMostProd(context.Context, string) (*[]Category, bool, error)
+	getProdById(context.Context, int) (*Product, error)
 }

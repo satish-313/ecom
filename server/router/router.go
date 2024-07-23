@@ -14,6 +14,8 @@ func InitRouter(h *product.Handler) {
 	e.Use(middleware.CORS())
 	e.GET("/discout_product", h.TopDiscountProducts)
 	e.GET("/category/:category/:offset", h.CategoryProducts)
+	e.GET("/categories/:offset", h.CateMostProd)
+	e.GET("/product/:id", h.GetProdById)
 }
 
 func Start() {

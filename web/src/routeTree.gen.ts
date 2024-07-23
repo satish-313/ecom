@@ -17,7 +17,7 @@ import { Route as CartImport } from './routes/cart'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 import { Route as ShopIndexImport } from './routes/shop.index'
-import { Route as ShopProductidImport } from './routes/shop.$productid'
+import { Route as ShopCategoryImport } from './routes/shop.$category'
 import { Route as ProductIdImport } from './routes/product.$id'
 
 // Create/Update Routes
@@ -52,8 +52,8 @@ const ShopIndexRoute = ShopIndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const ShopProductidRoute = ShopProductidImport.update({
-  path: '/shop/$productid',
+const ShopCategoryRoute = ShopCategoryImport.update({
+  path: '/shop/$category',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -108,11 +108,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductIdImport
       parentRoute: typeof rootRoute
     }
-    '/shop/$productid': {
-      id: '/shop/$productid'
-      path: '/shop/$productid'
-      fullPath: '/shop/$productid'
-      preLoaderRoute: typeof ShopProductidImport
+    '/shop/$category': {
+      id: '/shop/$category'
+      path: '/shop/$category'
+      fullPath: '/shop/$category'
+      preLoaderRoute: typeof ShopCategoryImport
       parentRoute: typeof rootRoute
     }
     '/shop/': {
@@ -134,7 +134,7 @@ export const routeTree = rootRoute.addChildren({
   CustomerRoute,
   WishlistRoute,
   ProductIdRoute,
-  ShopProductidRoute,
+  ShopCategoryRoute,
   ShopIndexRoute,
 })
 
@@ -152,7 +152,7 @@ export const routeTree = rootRoute.addChildren({
         "/customer",
         "/wishlist",
         "/product/$id",
-        "/shop/$productid",
+        "/shop/$category",
         "/shop/"
       ]
     },
@@ -174,8 +174,8 @@ export const routeTree = rootRoute.addChildren({
     "/product/$id": {
       "filePath": "product.$id.tsx"
     },
-    "/shop/$productid": {
-      "filePath": "shop.$productid.tsx"
+    "/shop/$category": {
+      "filePath": "shop.$category.tsx"
     },
     "/shop/": {
       "filePath": "shop.index.tsx"

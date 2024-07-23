@@ -1,3 +1,4 @@
+import Footer from "@/mycomponents/footer";
 import { createRootRoute, Link, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/router-devtools";
 
@@ -7,11 +8,11 @@ const hstyle =
     "transition delay-300 duration-300 ease-in-out hover:decoration-4 hover:decoration-red-500 hover:underline hover:underline-offset-8";
 export const Route = createRootRoute({
     component: Nav,
-}); 
+});
 
 function Nav() {
     return (
-        <main className="max-w-screen-lg w-11/12 mx-auto">
+        <main className="max-w-screen-lg w-11/12 mx-auto min-h-screen">
             <nav className="flex items-center justify-between font-medium text-lg p-4">
                 <div className="font-semibold">
                     <Link to="/">Ecom</Link>
@@ -40,6 +41,7 @@ function Nav() {
                 </div>
             </nav>
             <Outlet />
+            <Footer />
             <TanStackRouterDevtools />
         </main>
     );

@@ -41,3 +41,27 @@ func (s *service) categoryProduct(c context.Context, category string, offset str
 
 	return &r, isNext, nil
 }
+
+func (s *service) cateWithMostProd(c context.Context, offset string) (*[]Category, bool, error) {
+	p, err := s.Repository.categoryWithProd(c, offset)
+	if err != nil {
+		return nil, false, err
+	}
+	r := *p
+	isNext := false
+
+	if len(*p) > 3 {
+		isNext = true
+		r = (*p)[:3]
+	}
+
+	return &r, isNext, nil
+}
+
+func (s *service) getProdById(c context.Context, id int) (*Product, error) {
+	p, err := s.Repository.getProdById(c, id)
+	if err != nil {
+		return nil, err
+	}
+	return p, nil
+}
